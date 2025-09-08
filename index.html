@@ -1,85 +1,314 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Portfolio</title>
-    <style>
-      body {
-        background-color: #fdfdfd;
-        font-family: 'Segoe UI', sans-serif;
-        color: #333;
-        margin: 0;
-        padding: 0;
-        text-align: center;
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Rahul — Coming Soon</title>
+  <meta name="description" content="Rahul's portfolio is under construction. Connect with me and check back soon.">
+  <style>
+    :root{
+      --bg1:#0b0f1a;
+      --bg2:#0f1424;
+      --fg:#e8ecf1;
+      --muted:#a8b2c1;
+      --neon:#53e3fb;        /* primary accent */
+      --neon2:#7cf7c7;       /* secondary accent */
+      --card:#111728cc;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, #1a2442 0%, transparent 60%),
+        radial-gradient(1200px 800px at 90% 80%, #152a23 0%, transparent 60%),
+        linear-gradient(120deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* animated subtle gradient wash */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: radial-gradient(60% 80% at 70% 20%, rgba(83,227,251,.10), transparent 70%),
+                  radial-gradient(70% 70% at 30% 80%, rgba(124,247,199,.08), transparent 70%);
+      animation: wash 16s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    @keyframes wash { to { transform: translateY(-2%) scale(1.02); filter: hue-rotate(10deg); } }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:min(920px, 92vw);
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+      padding:28px;
+      backdrop-filter: blur(8px);
+    }
+
+    header{
+      display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+      border-bottom: 1px dashed rgba(255,255,255,.12);
+      padding-bottom:18px; margin-bottom:22px;
+    }
+    .avatar{
+      width:72px; height:72px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.12);
+      background: url('https://placehold.co/144x144/png') center/cover no-repeat;
+      flex: 0 0 72px;
+    }
+    .title h1{
+      margin:0; font-size: clamp(22px, 4vw, 28px); letter-spacing:.2px;
+    }
+    .title p{
+      margin:6px 0 0; color:var(--muted); font-size:14px;
+    }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:10px; padding:6px 10px; border-radius:999px;
+      font-size:12px; color:#001218; background: linear-gradient(90deg, var(--neon), var(--neon2));
+      font-weight:700; text-transform:uppercase; letter-spacing:.6px;
+      box-shadow: 0 0 10px rgba(83,227,251,.45);
+    }
+
+    .hero{
+      display:grid; gap:16px; margin:8px 0 10px;
+    }
+    .hero h2{
+      margin:0;
+      font-size: clamp(24px, 6vw, 46px);
+      line-height:1.1;
+      text-shadow: 0 0 18px rgba(83,227,251,.15);
+    }
+    .hero p{ margin:0; color:var(--muted); font-size: clamp(14px, 2.5vw, 16px) }
+
+    .terminal{
+      margin-top:18px;
+      background:#0a0f1d;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color:#d6ffe7;
+      position:relative;
+    }
+    .dot{ width:8px; height:8px; border-radius:999px; background:#f66; display:inline-block; margin-right:6px }
+    .dot.y{ background:#fc6 }
+    .dot.g{ background:#6f6 }
+
+    .lines{ min-height:66px; white-space:pre-wrap; }
+
+    .grid{
+      display:grid; gap:16px; margin-top:18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    }
+
+    .panel{
+      background:#0c1224;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:16px;
+    }
+    .panel h3{ margin:0 0 10px; font-size:16px }
+    .panel p{ margin:8px 0 0; color:var(--muted); font-size:14px }
+
+    .meter{ height:8px; border-radius:10px; background:#1a2442; overflow:hidden; margin-top:10px }
+    .meter > span{
+      display:block; height:100%;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      width:0%;
+      box-shadow: 0 0 10px rgba(83,227,251,.35);
+      transition: width 1.2s ease;
+    }
+
+    .count{
+      font-variant-numeric: tabular-nums;
+      font-weight:600;
+      font-size:18px;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:10px; text-decoration:none; color:#001218;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      font-weight:700; box-shadow: 0 0 14px rgba(83,227,251,.45);
+    }
+    .btn.ghost{
+      color:var(--fg); background:transparent; border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+    .socials{ display:flex; gap:10px; margin-left:auto }
+    .icon{
+      width:18px; height:18px; display:inline-block; vertical-align:-3px; fill:currentColor;
+    }
+
+    footer{
+      margin-top:22px; color:var(--muted); font-size:13px; text-align:center;
+    }
+
+    /* accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation:none }
+      .meter > span { transition:none }
+      .cursor{ animation:none }
+    }
+
+    /* typewriter caret */
+    .cursor{
+      display:inline-block; width:10px; margin-left:2px; height:1em; vertical-align:bottom;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      animation: blink 1s steps(1,end) infinite;
+    }
+    @keyframes blink { 50% { opacity:0 } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="card" role="main" aria-labelledby="headline">
+      <header>
+        <div class="avatar" aria-hidden="true"></div>
+        <div class="title">
+          <h1 id="headline">Rahul’s Portfolio</h1>
+          <p>Rebuilding with love, coffee, and clean CSS.</p>
+          <div class="badge" aria-label="Under construction">🚧 UNDER CONSTRUCTION</div>
+        </div>
+      </header>
+
+      <section class="hero" aria-describedby="sub">
+        <h2>Launching something new, soon.</h2>
+        <p id="sub">Check back after the countdown—or follow the links below.</p>
+
+        <!-- Terminal-style status -->
+        <div class="terminal" aria-live="polite">
+          <div style="margin-bottom:8px;">
+            <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="lines" id="term">
+            <!-- JS will type lines here -->
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="panel">
+            <h3>Next Release ETA</h3>
+            <div class="count" id="countdown">Calculating…</div>
+            <p>Drop date is tentative; I’ll update if plans change.</p>
+          </div>
+
+          <div class="panel">
+            <h3>Build Progress</h3>
+            <div>Design</div>
+            <div class="meter"><span id="m1"></span></div>
+            <div>Content</div>
+            <div class="meter"><span id="m2"></span></div>
+            <div>Code</div>
+            <div class="meter"><span id="m3"></span></div>
+          </div>
+
+          <div class="panel">
+            <h3>Stay Connected</h3>
+            <p>Meanwhile, find me here:</p>
+            <div class="actions">
+              <a class="btn" href="mailto:your@email.com" aria-label="Send me an email">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+                Email
+              </a>
+              <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM4 9h2v12H4zM9 9h2v1.7c.6-1 1.7-1.9 3.5-1.9 3 0 5.5 2 5.5 6.2V21h-2v-5.5c0-2.4-1-3.7-3-3.7-1.6 0-2.6 1.1-3 2.1V21H9z"/></svg>
+                LinkedIn
+              </a>
+              <a class="btn ghost" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a5.5 5.5 0 1 1 0 11.001 5.5 5.5 0 0 1 0-11Zm6.25-.75a1 1 0 1 1 0 2.001 1 1 0 0 1 0-2Z"/></svg>
+                Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Rahul. Building in public. 🚀
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // ====== EDIT ME ======
+    // Set your tentative launch date (YYYY-MM-DD)
+    const LAUNCH_DATE = "2025-10-15";
+    // Optionally tweak progress (0–100)
+    const PROGRESS = { design: 60, content: 35, code: 50 };
+    // =====================
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Progress meters
+    requestAnimationFrame(() => {
+      document.getElementById('m1').style.width = PROGRESS.design + '%';
+      document.getElementById('m2').style.width = PROGRESS.content + '%';
+      document.getElementById('m3').style.width = PROGRESS.code + '%';
+    });
+
+    // Countdown
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown(){
+      const now = new Date();
+      const target = new Date(LAUNCH_DATE + "T00:00:00");
+      const diff = target - now;
+      if (isNaN(target)) { countdownEl.textContent = "Date not set"; return; }
+      if (diff <= 0) { countdownEl.textContent = "Deploying shortly…"; return; }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      countdownEl.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Terminal typewriter
+    const term = document.getElementById('term');
+    const lines = [
+      "> initializing build system…",
+      "> pulling components: header, hero, panels…",
+      "> compiling styles…",
+      "> connecting socials…",
+      "> status: UNDER CONSTRUCTION ✅"
+    ];
+    let li = 0, ci = 0;
+    function typeNext(){
+      if (li >= lines.length) return;
+      const current = lines[li];
+      if (ci === 0) term.innerHTML += "\n";
+      term.innerHTML = term.innerHTML.replace(/<span class="cursor"><\/span>$/,'');
+      term.innerHTML += current.charAt(ci) || "";
+      ci++;
+      if (ci <= current.length){
+        term.innerHTML += '<span class="cursor"></span>';
+        setTimeout(typeNext, 28 + Math.random()*40);
+      } else {
+        ci = 0; li++;
+        setTimeout(typeNext, 350);
       }
-
-      header {
-        background-color: #0077cc;
-        color: white;
-        padding: 40px 20px;
-      }
-
-      img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin-top: 20px;
-      }
-
-      section {
-        padding: 40px 20px;
-      }
-
-      h2 {
-        color: #0077cc;
-      }
-
-      .social-links a {
-        margin: 0 10px;
-        text-decoration: none;
-        color: #0077cc;
-        font-weight: bold;
-      }
-
-      .social-links a:hover {
-        color: #005999;
-      }
-
-      footer {
-        margin-top: 30px;
-        padding: 20px;
-        background-color: #f1f1f1;
-        color: #555;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Hi, I'm Rahul!</h1>
-      <p>Welcome to my personal portfolio website.</p>
-      <img src="https://placekitten.com/150/150" alt="My Photo">
-    </header>
-
-    <section>
-      <h2>About Me</h2>
-      <p>I'm just starting my journey in web development. I love learning new things and building websites for fun.</p>
-    </section>
-
-    <section>
-      <h2>Skills</h2>
-      <p>HTML • CSS • JavaScript (soon 😉)</p>
-    </section>
-
-    <section>
-      <h2>Connect with Me</h2>
-      <div class="social-links">
-        <a href="https://instagram.com" target="_blank">Instagram</a>
-        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-        <a href="mailto:your@email.com">Email</a>
-      </div>
-    </section>
-
-    <footer>
-      &copy; 2025 Rahul. All rights reserved.
-    </footer>
-  </body>
+    }
+    term.textContent = ""; typeNext();
+  </script>
+</body>
 </html>
