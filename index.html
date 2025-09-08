@@ -1,288 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Rahul — Orbiting Soon</title>
-<meta name="description" content="Rahul's space-themed coming soon page.">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Rahul — Coming Soon</title>
+  <meta name="description" content="Rahul's portfolio is under construction. Connect with me and check back soon.">
+  <style>
+    :root{
+      --bg1:#0b0f1a;
+      --bg2:#0f1424;
+      --fg:#e8ecf1;
+      --muted:#a8b2c1;
+      --neon:#53e3fb;        /* primary accent */
+      --neon2:#7cf7c7;       /* secondary accent */
+      --card:#111728cc;
+    }
 
-<style>
-  :root{
-    --space:#040816;
-    --deep:#07112a;
-    --fg:#eaf3ff;
-    --muted:#a9c3ff;
-    --neon:#76b5ff;     /* blue glow */
-    --neon2:#a8f3ff;    /* cyan glow */
-    --card:#0a1430cc;
-    --accent:#ffffff;
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    color:var(--fg); background: radial-gradient(1200px 800px at 50% 20%, #0f265c 0%, transparent 60%), linear-gradient(#061330, var(--space));
-    overflow:hidden; /* starfield fills screen */
-    -webkit-font-smoothing:antialiased;
-  }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, #1a2442 0%, transparent 60%),
+        radial-gradient(1200px 800px at 90% 80%, #152a23 0%, transparent 60%),
+        linear-gradient(120deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
 
-  /* STARFIELD LAYERS */
-  .stars, .stars2, .stars3{
-    position:fixed; inset:0; background-repeat:repeat; pointer-events:none;
-    background-image:
-      radial-gradient(1px 1px at 20px 30px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 130px 80px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 80px 120px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 170px 160px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 220px 40px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 260px 200px, #fff, transparent 60%);
-    opacity:.7;
-  }
-  .stars{ background-size: 300px 300px; animation: drift 110s linear infinite; }
-  .stars2{ background-size: 500px 500px; animation: drift 180s linear infinite; opacity:.5 }
-  .stars3{ background-size: 800px 800px; animation: drift 260s linear infinite; opacity:.35 }
-  @keyframes drift { to { transform: translate3d(-200px,-200px,0) } }
+    /* animated subtle gradient wash */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: radial-gradient(60% 80% at 70% 20%, rgba(83,227,251,.10), transparent 70%),
+                  radial-gradient(70% 70% at 30% 80%, rgba(124,247,199,.08), transparent 70%);
+      animation: wash 16s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    @keyframes wash { to { transform: translateY(-2%) scale(1.02); filter: hue-rotate(10deg); } }
 
-  /* LAYOUT */
-  .wrap{ position:relative; height:100%; display:grid; place-items:center; padding:24px }
-  .card{
-    width:min(920px,92vw); background:var(--card);
-    border:1px solid rgba(255,255,255,.12); border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06);
-    padding:22px 22px 26px; backdrop-filter: blur(8px);
-    transform-style: preserve-3d;
-  }
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:48px 20px;
+    }
 
-  header{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding-bottom:10px; border-bottom:1px dashed rgba(255,255,255,.18) }
-  .logo{
-    width:54px; height:54px; border-radius:12px; display:grid; place-items:center;
-    background: linear-gradient(145deg, #0b2250, #0a1a3b);
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow: 0 0 20px rgba(118,181,255,.25);
-  }
-  .title h1{ margin:0; font-size: clamp(22px, 4vw, 28px) }
-  .title p{ margin:6px 0 0; color:var(--muted); font-size:14px }
+    .card{
+      width:min(920px, 92vw);
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+      padding:28px;
+      backdrop-filter: blur(8px);
+    }
 
-  .badge{
-    margin-left:auto; display:inline-flex; align-items:center; gap:8px;
-    padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700; letter-spacing:.6px;
-    color:#002233; background:linear-gradient(90deg, var(--neon), var(--neon2));
-    box-shadow:0 0 14px rgba(118,181,255,.45);
-  }
+    header{
+      display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+      border-bottom: 1px dashed rgba(255,255,255,.12);
+      padding-bottom:18px; margin-bottom:22px;
+    }
+    .avatar{
+      width:72px; height:72px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.12);
+      background: url('https://placehold.co/144x144/png') center/cover no-repeat;
+      flex: 0 0 72px;
+    }
+    .title h1{
+      margin:0; font-size: clamp(22px, 4vw, 28px); letter-spacing:.2px;
+    }
+    .title p{
+      margin:6px 0 0; color:var(--muted); font-size:14px;
+    }
 
-  .hero{ display:grid; gap:12px; margin:14px 0 }
-  .hero h2{ margin:0; font-size: clamp(24px, 6vw, 46px); line-height:1.1; text-shadow:0 0 22px rgba(118,181,255,.25) }
-  .hero p{ margin:0; color:var(--muted) }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:10px; padding:6px 10px; border-radius:999px;
+      font-size:12px; color:#001218; background: linear-gradient(90deg, var(--neon), var(--neon2));
+      font-weight:700; text-transform:uppercase; letter-spacing:.6px;
+      box-shadow: 0 0 10px rgba(83,227,251,.45);
+    }
 
-  /* TERMINAL */
-  .terminal{
-    margin-top:14px; background:#07122c; border:1px solid rgba(255,255,255,.1);
-    border-radius:12px; padding:14px 16px; font-family: ui-monospace, Menlo, Consolas, monospace; color:#e6fbff;
-  }
-  .lights{ display:flex; gap:6px; margin-bottom:8px }
-  .lights span{ width:8px; height:8px; border-radius:999px; display:inline-block }
-  .r{ background:#ff6b6b } .y{ background:#ffd166 } .g{ background:#5cf29a }
-  .lines{ min-height:64px; white-space:pre-wrap }
-  .cursor{ display:inline-block; width:10px; height:1em; background:linear-gradient(90deg,var(--neon),var(--neon2)); animation:blink 1s steps(1,end) infinite; vertical-align:bottom }
-  @keyframes blink{50%{opacity:0}}
+    .hero{
+      display:grid; gap:16px; margin:8px 0 10px;
+    }
+    .hero h2{
+      margin:0;
+      font-size: clamp(24px, 6vw, 46px);
+      line-height:1.1;
+      text-shadow: 0 0 18px rgba(83,227,251,.15);
+    }
+    .hero p{ margin:0; color:var(--muted); font-size: clamp(14px, 2.5vw, 16px) }
 
-  /* GRID PANELS */
-  .grid{ display:grid; gap:16px; margin-top:16px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)) }
-  .panel{ background:#07142e; border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:16px }
-  .panel h3{ margin:0 0 8px; font-size:16px }
-  .panel p{ margin:8px 0 0; color:var(--muted); font-size:14px }
-  .meter{ height:8px; background:#0d2153; border-radius:10px; overflow:hidden; margin-top:8px }
-  .meter > span{ display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--neon),var(--neon2)); box-shadow:0 0 10px rgba(118,181,255,.35); transition: width 1.2s ease }
+    .terminal{
+      margin-top:18px;
+      background:#0a0f1d;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color:#d6ffe7;
+      position:relative;
+    }
+    .dot{ width:8px; height:8px; border-radius:999px; background:#f66; display:inline-block; margin-right:6px }
+    .dot.y{ background:#fc6 }
+    .dot.g{ background:#6f6 }
 
-  /* ROCKET */
-  .launch{
-    position:absolute; right:24px; bottom:-8px; width:84px; height:160px; pointer-events:none;
-    transform: translateZ(40px);
-  }
-  .flame{ filter: blur(1px); transform-origin:50% 0%; animation:flap .22s infinite alternate ease-in-out }
-  @keyframes flap{ to { transform: scaleY(1.12) } }
-  .exhaust{ position:absolute; left:50%; bottom:-30px; transform:translateX(-50%); width:4px; height:60px; background:linear-gradient(var(--neon2), transparent); filter:blur(2px); opacity:.7; animation: exhaust 1.2s linear infinite }
-  @keyframes exhaust{ 0%{height:40px; opacity:.8} 50%{height:70px; opacity:.55} 100%{height:40px; opacity:.8} }
+    .lines{ min-height:66px; white-space:pre-wrap; }
 
-  /* ACTIONS */
-  .actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px }
-  .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; text-decoration:none; color:#002233; background:linear-gradient(90deg,var(--neon),var(--neon2)); font-weight:700; box-shadow:0 0 14px rgba(118,181,255,.45) }
-  .btn.ghost{ color:var(--fg); background:transparent; border:1px solid rgba(255,255,255,.18); box-shadow:none }
-  .icon{ width:18px; height:18px; display:inline-block; fill:currentColor }
+    .grid{
+      display:grid; gap:16px; margin-top:18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    }
 
-  footer{ margin-top:18px; text-align:center; color:var(--muted); font-size:13px }
+    .panel{
+      background:#0c1224;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:16px;
+    }
+    .panel h3{ margin:0 0 10px; font-size:16px }
+    .panel p{ margin:8px 0 0; color:var(--muted); font-size:14px }
 
-  /* tilt less on small screens */
-  @media (max-width:520px){ .launch{ display:none } }
-</style>
+    .meter{ height:8px; border-radius:10px; background:#1a2442; overflow:hidden; margin-top:10px }
+    .meter > span{
+      display:block; height:100%;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      width:0%;
+      box-shadow: 0 0 10px rgba(83,227,251,.35);
+      transition: width 1.2s ease;
+    }
+
+    .count{
+      font-variant-numeric: tabular-nums;
+      font-weight:600;
+      font-size:18px;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:10px; text-decoration:none; color:#001218;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      font-weight:700; box-shadow: 0 0 14px rgba(83,227,251,.45);
+    }
+    .btn.ghost{
+      color:var(--fg); background:transparent; border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+    .socials{ display:flex; gap:10px; margin-left:auto }
+    .icon{
+      width:18px; height:18px; display:inline-block; vertical-align:-3px; fill:currentColor;
+    }
+
+    footer{
+      margin-top:22px; color:var(--muted); font-size:13px; text-align:center;
+    }
+
+    /* accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation:none }
+      .meter > span { transition:none }
+      .cursor{ animation:none }
+    }
+
+    /* typewriter caret */
+    .cursor{
+      display:inline-block; width:10px; margin-left:2px; height:1em; vertical-align:bottom;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      animation: blink 1s steps(1,end) infinite;
+    }
+    @keyframes blink { 50% { opacity:0 } }
+  </style>
 </head>
 <body>
-  <!-- Starfield layers -->
-  <div class="stars"></div><div class="stars2"></div><div class="stars3"></div>
-
   <div class="wrap">
-    <main class="card" id="card" role="main" aria-labelledby="head">
+    <main class="card" role="main" aria-labelledby="headline">
       <header>
-        <div class="logo" aria-hidden="true">
-          <!-- Tiny planet logo -->
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" class="icon" aria-hidden="true">
-            <circle cx="12" cy="12" r="6.5" stroke="url(#g1)" stroke-width="2"/>
-            <ellipse cx="12" cy="12" rx="10" ry="4" stroke="url(#g1)" stroke-width="1.5"/>
-            <defs><linearGradient id="g1" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#76b5ff"/><stop offset="1" stop-color="#a8f3ff"/></linearGradient></defs>
-          </svg>
-        </div>
+        <div class="avatar" aria-hidden="true"></div>
         <div class="title">
-          <h1 id="head">Rahul’s Playground</h1>
-          <p>Orbiting in progress — blue & white cosmic vibes ✨</p>
+          <h1 id="headline">Rahul’s Portfolio</h1>
+          <p>Rebuilding with love, coffee, and clean CSS.</p>
+          <div class="badge" aria-label="Under construction">🚧 UNDER CONSTRUCTION</div>
         </div>
-        <div class="badge">🚀 LAUNCHING SOON</div>
       </header>
 
       <section class="hero" aria-describedby="sub">
-        <h2>Setting coordinates. Engaging warp drive.</h2>
-        <p id="sub">While the ship warms up, follow the beacons below.</p>
+        <h2>Launching something new, soon.</h2>
+        <p id="sub">Check back after the countdown—or follow the links below.</p>
 
-        <!-- Terminal -->
+        <!-- Terminal-style status -->
         <div class="terminal" aria-live="polite">
-          <div class="lights"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-          <div class="lines" id="term"></div>
+          <div style="margin-bottom:8px;">
+            <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="lines" id="term">
+            <!-- JS will type lines here -->
+          </div>
         </div>
 
-        <!-- Panels -->
         <div class="grid">
           <div class="panel">
-            <h3>Launch Countdown</h3>
-            <div id="count" style="font-variant-numeric:tabular-nums;font-weight:600;font-size:18px">Calculating…</div>
-            <p>ETA subject to cosmic weather.</p>
+            <h3>Next Release ETA</h3>
+            <div class="count" id="countdown">Calculating…</div>
+            <p>Drop date is tentative; I’ll update if plans change.</p>
           </div>
 
           <div class="panel">
             <h3>Build Progress</h3>
-            <div>Spaceship Design</div><div class="meter"><span id="m1"></span></div>
-            <div>Engine Code</div><div class="meter"><span id="m2"></span></div>
-            <div>Content Galaxy</div><div class="meter"><span id="m3"></span></div>
+            <div>Design</div>
+            <div class="meter"><span id="m1"></span></div>
+            <div>Content</div>
+            <div class="meter"><span id="m2"></span></div>
+            <div>Code</div>
+            <div class="meter"><span id="m3"></span></div>
           </div>
 
           <div class="panel">
-            <h3>Beacons</h3>
-            <p>Ping me or orbit my socials:</p>
+            <h3>Stay Connected</h3>
+            <p>Meanwhile, find me here:</p>
             <div class="actions">
-              <a class="btn" href="mailto:your@email.com" aria-label="Email">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+              <a class="btn" href="mailto:your@email.com" aria-label="Send me an email">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
                 Email
               </a>
               <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001A2.5 2.5 0 0 1 4.98 3.5zM4 9h2v12H4zm5 0h2v1.7c.6-1 1.7-1.9 3.5-1.9 3 0 5.5 2 5.5 6.2V21h-2v-5.5c0-2.4-1-3.7-3-3.7-1.6 0-2.6 1.1-3 2.1V21H9z"/></svg>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM4 9h2v12H4zM9 9h2v1.7c.6-1 1.7-1.9 3.5-1.9 3 0 5.5 2 5.5 6.2V21h-2v-5.5c0-2.4-1-3.7-3-3.7-1.6 0-2.6 1.1-3 2.1V21H9z"/></svg>
                 LinkedIn
               </a>
               <a class="btn ghost" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a5.5 5.5 0 1 1 0 11.001 5.5 5.5 0 0 1 0-11Zm6.25-.75a1 1 0 1 1 0 2.001 1 1 0 0 1 0-2Z"/></svg>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a5.5 5.5 0 1 1 0 11.001 5.5 5.5 0 0 1 0-11Zm6.25-.75a1 1 0 1 1 0 2.001 1 1 0 0 1 0-2Z"/></svg>
                 Instagram
               </a>
             </div>
           </div>
         </div>
-
-        <!-- Rocket (inline SVG) -->
-        <svg class="launch" viewBox="0 0 64 120" aria-hidden="true">
-          <defs>
-            <linearGradient id="hull" x1="0" y1="0" x2="1" y2="1">
-              <stop stop-color="#eaf3ff"/><stop offset="1" stop-color="#a9c3ff"/>
-            </linearGradient>
-          </defs>
-          <!-- body -->
-          <path d="M32 8 C24 20 20 36 20 52 v32 h24 V52 c0-16-4-32-12-44z" fill="url(#hull)" stroke="#b7d5ff" stroke-width="1.2"/>
-          <!-- window -->
-          <circle cx="32" cy="40" r="6" fill="#061330" stroke="#76b5ff"/>
-          <!-- fins -->
-          <path d="M20 80 L8 92 L20 92z" fill="#7fbaff"/>
-          <path d="M44 80 L56 92 L44 92z" fill="#7fbaff"/>
-          <!-- flame -->
-          <g class="flame">
-            <path d="M32 84 C26 92 28 104 32 112 C36 104 38 92 32 84z" fill="#ffd166"/>
-            <path d="M32 90 C29 96 30 103 32 108 C34 103 35 96 32 90z" fill="#ff7b54"/>
-          </g>
-          <div class="exhaust"></div>
-        </svg>
-
       </section>
 
-      <footer>© <span id="year"></span> Rahul — Orbiting soon 🌌</footer>
+      <footer>
+        © <span id="year"></span> Rahul. Building in public. 🚀
+      </footer>
     </main>
   </div>
 
-<script>
-  // ===== EDIT THESE =====
-  const LAUNCH_DATE = "2025-10-15";  // YYYY-MM-DD
-  const PROGRESS = { design: 70, code: 45, content: 25 };
-  // ======================
+  <script>
+    // ====== EDIT ME ======
+    // Set your tentative launch date (YYYY-MM-DD)
+    const LAUNCH_DATE = "2025-10-15";
+    // Optionally tweak progress (0–100)
+    const PROGRESS = { design: 60, content: 35, code: 50 };
+    // =====================
 
-  // Year
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Progress bars
-  requestAnimationFrame(()=>{
-    document.getElementById('m1').style.width = PROGRESS.design + '%';
-    document.getElementById('m2').style.width = PROGRESS.code + '%';
-    document.getElementById('m3').style.width = PROGRESS.content + '%';
-  });
+    // Progress meters
+    requestAnimationFrame(() => {
+      document.getElementById('m1').style.width = PROGRESS.design + '%';
+      document.getElementById('m2').style.width = PROGRESS.content + '%';
+      document.getElementById('m3').style.width = PROGRESS.code + '%';
+    });
 
-  // Countdown
-  const c = document.getElementById('count');
-  function tick(){
-    const now = new Date();
-    const t = new Date(LAUNCH_DATE + "T00:00:00");
-    if (isNaN(t)){ c.textContent = "T-0 date TBD"; return; }
-    const diff = t - now;
-    if (diff <= 0){ c.textContent = "Initiating launch…"; return; }
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor((diff/3600000)%24);
-    const m = Math.floor((diff/60000)%60);
-    const s = Math.floor((diff/1000)%60);
-    c.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
-  }
-  tick(); setInterval(tick,1000);
+    // Countdown
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown(){
+      const now = new Date();
+      const target = new Date(LAUNCH_DATE + "T00:00:00");
+      const diff = target - now;
+      if (isNaN(target)) { countdownEl.textContent = "Date not set"; return; }
+      if (diff <= 0) { countdownEl.textContent = "Deploying shortly…"; return; }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      countdownEl.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
-  // Typewriter terminal
-  const term = document.getElementById('term');
-  const lines = [
-    "> plotting trajectory…",
-    "> calibrating star trackers…",
-    "> fueling main engine…",
-    "> clearing launch pad…",
-    "> STATUS: IN ORBIT 🌌"
-  ];
-  let li=0, ci=0;
-  function type(){
-    if(li>=lines.length) return;
-    const cur = lines[li];
-    if(ci===0) term.innerHTML += "\n";
-    term.innerHTML = term.innerHTML.replace(/<span class="cursor"><\/span>$/,'');
-    term.innerHTML += cur.charAt(ci) || "";
-    ci++;
-    if(ci<=cur.length){
-      term.innerHTML += '<span class="cursor"></span>';
-      setTimeout(type, 26 + Math.random()*40);
-    } else { ci=0; li++; setTimeout(type, 360); }
-  }
-  term.textContent=""; type();
-
-  // Subtle 3D tilt (works with touch)
-  const card = document.getElementById('card');
-  let rect;
-  function tilt(x,y){
-    rect = rect || card.getBoundingClientRect();
-    const rx = ((y - (rect.top + rect.height/2)) / rect.height) * -6;
-    const ry = ((x - (rect.left + rect.width/2)) / rect.width) * 8;
-    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  }
-  function reset(){ card.style.transform = "rotateX(0deg) rotateY(0deg)"; rect=null }
-  document.addEventListener('mousemove', e => tilt(e.clientX,e.clientY), {passive:true});
-  document.addEventListener('mouseleave', reset);
-  document.addEventListener('touchmove', e => {
-    const t = e.touches[0]; tilt(t.clientX, t.clientY);
-  }, {passive:true});
-  document.addEventListener('touchend', reset);
-</script>
+    // Terminal typewriter
+    const term = document.getElementById('term');
+    const lines = [
+      "> initializing build system…",
+      "> pulling components: header, hero, panels…",
+      "> compiling styles…",
+      "> connecting socials…",
+      "> status: UNDER CONSTRUCTION ✅"
+    ];
+    let li = 0, ci = 0;
+    function typeNext(){
+      if (li >= lines.length) return;
+      const current = lines[li];
+      if (ci === 0) term.innerHTML += "\n";
+      term.innerHTML = term.innerHTML.replace(/<span class="cursor"><\/span>$/,'');
+      term.innerHTML += current.charAt(ci) || "";
+      ci++;
+      if (ci <= current.length){
+        term.innerHTML += '<span class="cursor"></span>';
+        setTimeout(typeNext, 28 + Math.random()*40);
+      } else {
+        ci = 0; li++;
+        setTimeout(typeNext, 350);
+      }
+    }
+    term.textContent = ""; typeNext();
+  </script>
 </body>
 </html>
