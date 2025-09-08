@@ -1,367 +1,314 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Rahul — Dubai Night / Coming Soon</title>
-<meta name="description" content="Dubai neon night coming-soon page for Rahul."/>
-<style>
-  :root{
-    --bg:#05070f;          /* deep night */
-    --bg2:#0a1024;         /* horizon blue */
-    --neon:#00f0ff;        /* cyan neon */
-    --neon2:#8a5cff;       /* violet neon */
-    --gold:#ffd36b;        /* Dubai luxe accent */
-    --fg:#e9f3ff;          /* text */
-    --muted:#a7b6d6;       /* muted */
-    --card:#0a0f1acc;      /* glass card */
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0; color:var(--fg);
-    font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-    background: radial-gradient(1300px 900px at 60% -20%, #1e2b63 0%, transparent 50%),
-                linear-gradient(180deg, #060a18 0%, var(--bg) 45%, var(--bg2) 100%);
-    overflow:hidden;
-    -webkit-font-smoothing:antialiased;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Rahul — Coming Soon</title>
+  <meta name="description" content="Rahul's portfolio is under construction. Connect with me and check back soon.">
+  <style>
+    :root{
+      --bg1:#0b0f1a;
+      --bg2:#0f1424;
+      --fg:#e8ecf1;
+      --muted:#a8b2c1;
+      --neon:#53e3fb;        /* primary accent */
+      --neon2:#7cf7c7;       /* secondary accent */
+      --card:#111728cc;
+    }
 
-  /* subtle stars */
-  .stars, .stars2{
-    position:fixed; inset:0; pointer-events:none; opacity:.45;
-    background-image:
-      radial-gradient(1px 1px at 20px 30px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 130px 80px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 80px 120px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 170px 160px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 220px 40px, #fff, transparent 60%),
-      radial-gradient(1px 1px at 260px 200px, #fff, transparent 60%);
-  }
-  .stars{ background-size: 380px 380px; animation: drift 160s linear infinite }
-  .stars2{ background-size: 640px 640px; animation: drift 280s linear infinite; opacity:.28 }
-  @keyframes drift { to { transform: translate3d(-220px,-180px,0) } }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, #1a2442 0%, transparent 60%),
+        radial-gradient(1200px 800px at 90% 80%, #152a23 0%, transparent 60%),
+        linear-gradient(120deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
 
-  /* moving dunes */
-  .dunes{
-    position:fixed; left:-10vw; right:-10vw; bottom:-2vh; height:34vh; pointer-events:none;
-    background:
-      radial-gradient(60vh 14vh at 20% 100%, #0d1530 10%, transparent 55%),
-      radial-gradient(70vh 16vh at 60% 100%, #0d1530 10%, transparent 55%),
-      radial-gradient(55vh 12vh at 90% 100%, #0d1530 10%, transparent 55%);
-    filter: blur(6px);
-    animation: dunes 12s ease-in-out infinite alternate;
-    opacity:.6;
-  }
-  @keyframes dunes { to { transform: translateY(1.6vh) } }
+    /* animated subtle gradient wash */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: radial-gradient(60% 80% at 70% 20%, rgba(83,227,251,.10), transparent 70%),
+                  radial-gradient(70% 70% at 30% 80%, rgba(124,247,199,.08), transparent 70%);
+      animation: wash 16s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    @keyframes wash { to { transform: translateY(-2%) scale(1.02); filter: hue-rotate(10deg); } }
 
-  /* neon skyline (SVG) */
-  .skyline{
-    position:fixed; left:50%; bottom:0; width:1200px; max-width:140vw; transform:translateX(-50%);
-    opacity:.9;
-    filter: drop-shadow(0 0 18px rgba(0,240,255,.25));
-  }
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:48px 20px;
+    }
 
-  .wrap{ position:relative; height:100%; display:grid; place-items:center; padding:24px }
-  .card{
-    width:min(980px, 94vw); background:var(--card);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:18px; backdrop-filter: blur(10px);
-    box-shadow: 0 10px 40px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.06);
-    padding:22px;
-    transform-style: preserve-3d;
-  }
+    .card{
+      width:min(920px, 92vw);
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+      padding:28px;
+      backdrop-filter: blur(8px);
+    }
 
-  header{
-    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
-    padding-bottom:12px; border-bottom:1px dashed rgba(255,255,255,.18)
-  }
-  .logo{
-    width:56px; height:56px; border-radius:14px; display:grid; place-items:center;
-    background: linear-gradient(145deg, #0b1140, #0a0f2e);
-    border:1px solid rgba(255,255,255,.14);
-    box-shadow: 0 0 22px rgba(0,240,255,.35);
-  }
-  .title h1{ margin:0; font-size: clamp(22px, 4vw, 30px); letter-spacing:.2px }
-  .title p{ margin:6px 0 0; color:var(--muted); font-size:14px }
-  .badge{
-    margin-left:auto; display:inline-flex; align-items:center; gap:8px;
-    padding:6px 10px; border-radius:999px; font-size:12px; font-weight:800; letter-spacing:.6px;
-    color:#00141a; background:linear-gradient(90deg, var(--neon), var(--neon2));
-    box-shadow: 0 0 16px rgba(0,240,255,.45);
-    text-transform:uppercase;
-  }
+    header{
+      display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+      border-bottom: 1px dashed rgba(255,255,255,.12);
+      padding-bottom:18px; margin-bottom:22px;
+    }
+    .avatar{
+      width:72px; height:72px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.12);
+      background: url('https://placehold.co/144x144/png') center/cover no-repeat;
+      flex: 0 0 72px;
+    }
+    .title h1{
+      margin:0; font-size: clamp(22px, 4vw, 28px); letter-spacing:.2px;
+    }
+    .title p{
+      margin:6px 0 0; color:var(--muted); font-size:14px;
+    }
 
-  /* neon headline */
-  .hero{ display:grid; gap:12px; margin:16px 0 }
-  .hero h2{
-    margin:0; font-size: clamp(26px, 7vw, 60px); line-height:1.0;
-    background: linear-gradient(90deg, var(--neon), var(--neon2));
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow: 0 0 24px rgba(0,240,255,.25);
-  }
-  .hero p{ margin:0; color:var(--muted) }
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:10px; padding:6px 10px; border-radius:999px;
+      font-size:12px; color:#001218; background: linear-gradient(90deg, var(--neon), var(--neon2));
+      font-weight:700; text-transform:uppercase; letter-spacing:.6px;
+      box-shadow: 0 0 10px rgba(83,227,251,.45);
+    }
 
-  /* bilingual switch */
-  .lang{
-    display:flex; gap:8px; align-items:center; margin-top:6px
-  }
-  .chip{
-    border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:6px 10px;
-    font-size:12px; color:var(--fg); cursor:pointer; user-select:none;
-  }
-  .chip.active{
-    background:linear-gradient(90deg, var(--neon), var(--neon2)); color:#00141a; font-weight:800;
-    box-shadow: 0 0 12px rgba(0,240,255,.35);
-  }
+    .hero{
+      display:grid; gap:16px; margin:8px 0 10px;
+    }
+    .hero h2{
+      margin:0;
+      font-size: clamp(24px, 6vw, 46px);
+      line-height:1.1;
+      text-shadow: 0 0 18px rgba(83,227,251,.15);
+    }
+    .hero p{ margin:0; color:var(--muted); font-size: clamp(14px, 2.5vw, 16px) }
 
-  /* terminal */
-  .terminal{
-    margin-top:14px; background:#08122b; border:1px solid rgba(255,255,255,.12);
-    border-radius:12px; padding:14px 16px; font-family: ui-monospace, Menlo, Consolas, monospace; color:#e6fbff;
-  }
-  .lights{ display:flex; gap:6px; margin-bottom:8px }
-  .lights span{ width:8px; height:8px; border-radius:999px; display:inline-block }
-  .r{ background:#ff6b6b } .y{ background:#ffd166 } .g{ background:#5cf29a }
-  .lines{ min-height:64px; white-space:pre-wrap }
-  .cursor{ display:inline-block; width:10px; height:1em; background:linear-gradient(90deg,var(--neon),var(--neon2)); animation:blink 1s steps(1,end) infinite; vertical-align:bottom }
-  @keyframes blink{50%{opacity:0}}
+    .terminal{
+      margin-top:18px;
+      background:#0a0f1d;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:14px 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      color:#d6ffe7;
+      position:relative;
+    }
+    .dot{ width:8px; height:8px; border-radius:999px; background:#f66; display:inline-block; margin-right:6px }
+    .dot.y{ background:#fc6 }
+    .dot.g{ background:#6f6 }
 
-  /* grid panels */
-  .grid{ display:grid; gap:16px; margin-top:16px; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)) }
-  .panel{ background:#0a1432; border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:16px }
-  .panel h3{ margin:0 0 8px; font-size:16px }
-  .panel p{ margin:8px 0 0; color:var(--muted); font-size:14px }
-  .meter{ height:8px; background:#0d1f55; border-radius:10px; overflow:hidden; margin-top:8px }
-  .meter > span{ display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--neon),var(--neon2)); box-shadow:0 0 12px rgba(0,240,255,.35); transition: width 1.1s ease }
+    .lines{ min-height:66px; white-space:pre-wrap; }
 
-  .actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px }
-  .btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; text-decoration:none; color:#00141a; background:linear-gradient(90deg,var(--neon),var(--neon2)); font-weight:800; box-shadow:0 0 16px rgba(0,240,255,.45) }
-  .btn.ghost{ color:var(--fg); background:transparent; border:1px solid rgba(255,255,255,.18); box-shadow:none }
-  .icon{ width:18px; height:18px; display:inline-block; fill:currentColor }
+    .grid{
+      display:grid; gap:16px; margin-top:18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    }
 
-  footer{ margin-top:16px; text-align:center; color:var(--muted); font-size:13px }
+    .panel{
+      background:#0c1224;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      padding:16px;
+    }
+    .panel h3{ margin:0 0 10px; font-size:16px }
+    .panel p{ margin:8px 0 0; color:var(--muted); font-size:14px }
 
-  /* subtle 3D tilt */
-  @media (max-width:520px){ .skyline{ width:1000px } }
-</style>
+    .meter{ height:8px; border-radius:10px; background:#1a2442; overflow:hidden; margin-top:10px }
+    .meter > span{
+      display:block; height:100%;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      width:0%;
+      box-shadow: 0 0 10px rgba(83,227,251,.35);
+      transition: width 1.2s ease;
+    }
+
+    .count{
+      font-variant-numeric: tabular-nums;
+      font-weight:600;
+      font-size:18px;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:10px; text-decoration:none; color:#001218;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      font-weight:700; box-shadow: 0 0 14px rgba(83,227,251,.45);
+    }
+    .btn.ghost{
+      color:var(--fg); background:transparent; border:1px solid rgba(255,255,255,.18);
+      box-shadow:none;
+    }
+    .socials{ display:flex; gap:10px; margin-left:auto }
+    .icon{
+      width:18px; height:18px; display:inline-block; vertical-align:-3px; fill:currentColor;
+    }
+
+    footer{
+      margin-top:22px; color:var(--muted); font-size:13px; text-align:center;
+    }
+
+    /* accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation:none }
+      .meter > span { transition:none }
+      .cursor{ animation:none }
+    }
+
+    /* typewriter caret */
+    .cursor{
+      display:inline-block; width:10px; margin-left:2px; height:1em; vertical-align:bottom;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      animation: blink 1s steps(1,end) infinite;
+    }
+    @keyframes blink { 50% { opacity:0 } }
+  </style>
 </head>
 <body>
-  <!-- Background layers -->
-  <div class="stars"></div><div class="stars2"></div>
-  <div class="dunes"></div>
-
-  <!-- Dubai neon skyline (inline SVG with Burj Khalifa) -->
-  <svg class="skyline" viewBox="0 0 1400 360" aria-hidden="true">
-    <defs>
-      <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
-        <stop stop-color="#00f0ff"/><stop offset="1" stop-color="#8a5cff"/>
-      </linearGradient>
-      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="3" result="b"/>
-        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-    <!-- ground line -->
-    <rect x="0" y="320" width="1400" height="2" fill="url(#neon)" opacity=".7"/>
-    <!-- simple buildings -->
-    <g stroke="url(#neon)" fill="none" stroke-width="2" filter="url(#glow)" opacity=".9">
-      <!-- Burj Khalifa -->
-      <path d="M700 70 L700 40 M700 320 L700 70 M700 70 L695 90 M700 70 L705 90
-               M695 90 L695 150 M705 90 L705 150 M690 150 L690 220 M710 150 L710 220
-               M685 220 L685 270 M715 220 L715 270 M680 270 L680 320 M720 270 L720 320" />
-      <!-- Other towers (stylized) -->
-      <rect x="760" y="180" width="20" height="140" />
-      <rect x="790" y="200" width="26" height="120" />
-      <rect x="835" y="210" width="18" height="110" />
-      <rect x="865" y="190" width="22" height="130" />
-      <rect x="905" y="230" width="16" height="90" />
-      <rect x="610" y="220" width="22" height="100" />
-      <rect x="575" y="200" width="26" height="120" />
-      <rect x="540" y="210" width="18" height="110" />
-      <rect x="495" y="190" width="22" height="130" />
-      <rect x="455" y="230" width="16" height="90" />
-    </g>
-    <!-- shimmering lights -->
-    <g fill="url(#neon)" opacity=".85">
-      <circle cx="760" cy="196" r="2"/><circle cx="760" cy="210" r="2"/>
-      <circle cx="790" cy="212" r="2"/><circle cx="575" cy="214" r="2"/>
-      <circle cx="905" cy="238" r="2"/><circle cx="495" cy="198" r="2"/>
-    </g>
-  </svg>
-
   <div class="wrap">
-    <main class="card" id="card" role="main" aria-labelledby="head">
+    <main class="card" role="main" aria-labelledby="headline">
       <header>
-        <div class="logo" aria-hidden="true">
-          <!-- Palm + star logo -->
-          <svg width="28" height="28" viewBox="0 0 24 24" class="icon" aria-hidden="true">
-            <defs><linearGradient id="glogo" x1="0" y1="0" x2="24" y2="24"><stop stop-color="#00f0ff"/><stop offset="1" stop-color="#8a5cff"/></linearGradient></defs>
-            <path d="M12 3a3 3 0 0 1 3 3c0 1.7-2.1 2.7-3 5-1-2.3-3-3.3-3-5a3 3 0 0 1 3-3Z" fill="url(#glogo)"/>
-            <path d="M12 11v9" stroke="url(#glogo)" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="18" cy="5" r="1.2" fill="url(#glogo)"/>
-          </svg>
-        </div>
+        <div class="avatar" aria-hidden="true"></div>
         <div class="title">
-          <h1 id="head" data-en="Rahul’s Dubai Playground" data-ar="ساحة لعب راهول في دبي">Rahul’s Dubai Playground</h1>
-          <p id="subhead" data-en="Under construction — dark neon vibes from DXB." data-ar="قيد الإنشاء — أجواء نيون داكنة من دبي.">Under construction — dark neon vibes from DXB.</p>
-          <div class="lang">
-            <span id="btn-en" class="chip active">EN</span>
-            <span id="btn-ar" class="chip">AR</span>
-          </div>
+          <h1 id="headline">Rahul’s Portfolio</h1>
+          <p>Rebuilding with love, coffee, and clean CSS.</p>
+          <div class="badge" aria-label="Under construction">🚧 UNDER CONSTRUCTION</div>
         </div>
-        <div class="badge">🌙 Dubai • NEON</div>
       </header>
 
-      <section class="hero">
-        <h2 id="hero" data-en="Building under the Burj lights." data-ar="نبني تحت أضواء البرج.">Building under the Burj lights.</h2>
-        <p id="heroSub" data-en="Launch window is opening soon. Meanwhile, say hi or orbit the links below." data-ar="نافذة الإطلاق تفتح قريباً. في هذه الأثناء، تواصل معي أو زر الروابط أدناه.">Launch window is opening soon. Meanwhile, say hi or orbit the links below.</p>
+      <section class="hero" aria-describedby="sub">
+        <h2>Launching something new, soon.</h2>
+        <p id="sub">Check back after the countdown—or follow the links below.</p>
 
-        <!-- Terminal -->
+        <!-- Terminal-style status -->
         <div class="terminal" aria-live="polite">
-          <div class="lights"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-          <div class="lines" id="term"></div>
+          <div style="margin-bottom:8px;">
+            <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+          </div>
+          <div class="lines" id="term">
+            <!-- JS will type lines here -->
+          </div>
         </div>
 
-        <!-- Panels -->
         <div class="grid">
           <div class="panel">
-            <h3 data-en="Launch Countdown" data-ar="عدّ تنازلي للإطلاق">Launch Countdown</h3>
-            <div id="count" style="font-variant-numeric:tabular-nums;font-weight:700;font-size:18px">Calculating…</div>
-            <p data-en="Subject to desert winds and coffee." data-ar="رهناً برياح الصحراء وفنجان القهوة.">Subject to desert winds and coffee.</p>
+            <h3>Next Release ETA</h3>
+            <div class="count" id="countdown">Calculating…</div>
+            <p>Drop date is tentative; I’ll update if plans change.</p>
           </div>
 
           <div class="panel">
-            <h3 data-en="Build Progress" data-ar="تقدّم البناء">Build Progress</h3>
-            <div data-en="Design" data-ar="التصميم">Design</div><div class="meter"><span id="m1"></span></div>
-            <div data-en="Code" data-ar="البرمجة">Code</div><div class="meter"><span id="m2"></span></div>
-            <div data-en="Content" data-ar="المحتوى">Content</div><div class="meter"><span id="m3"></span></div>
+            <h3>Build Progress</h3>
+            <div>Design</div>
+            <div class="meter"><span id="m1"></span></div>
+            <div>Content</div>
+            <div class="meter"><span id="m2"></span></div>
+            <div>Code</div>
+            <div class="meter"><span id="m3"></span></div>
           </div>
 
           <div class="panel">
-            <h3 data-en="Beacons" data-ar="منارات">Beacons</h3>
-            <p data-en="Ping me or orbit my socials:" data-ar="تواصل معي أو زر حساباتي:">Ping me or orbit my socials:</p>
+            <h3>Stay Connected</h3>
+            <p>Meanwhile, find me here:</p>
             <div class="actions">
-              <a class="btn" href="mailto:your@email.com" aria-label="Email">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-                <span data-en="Email" data-ar="البريد">Email</span>
+              <a class="btn" href="mailto:your@email.com" aria-label="Send me an email">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+                Email
               </a>
               <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001A2.5 2.5 0 0 1 4.98 3.5zM4 9h2v12H4zm5 0h2v1.7c.6-1 1.7-1.9 3.5-1.9 3 0 5.5 2 5.5 6.2V21h-2v-5.5c0-2.4-1-3.7-3-3.7-1.6 0-2.6 1.1-3 2.1V21H9z"/></svg>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM4 9h2v12H4zM9 9h2v1.7c.6-1 1.7-1.9 3.5-1.9 3 0 5.5 2 5.5 6.2V21h-2v-5.5c0-2.4-1-3.7-3-3.7-1.6 0-2.6 1.1-3 2.1V21H9z"/></svg>
                 LinkedIn
               </a>
               <a class="btn ghost" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg class="icon" viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a5.5 5.5 0 1 1 0 11.001 5.5 5.5 0 0 1 0-11Zm6.25-.75a1 1 0 1 1 0 2.001 1 1 0 0 1 0-2Z"/></svg>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a5.5 5.5 0 1 1 0 11.001 5.5 5.5 0 0 1 0-11Zm6.25-.75a1 1 0 1 1 0 2.001 1 1 0 0 1 0-2Z"/></svg>
                 Instagram
               </a>
             </div>
           </div>
         </div>
-
-        <!-- micro footer -->
-        <footer>© <span id="year"></span> Rahul — Dubai Night, Coming Soon</footer>
       </section>
+
+      <footer>
+        © <span id="year"></span> Rahul. Building in public. 🚀
+      </footer>
     </main>
   </div>
 
-<script>
-  // ===== EDIT THESE =====
-  const LAUNCH_DATE = "2025-11-15";  // YYYY-MM-DD
-  const PROGRESS = { design: 78, code: 55, content: 32 };
-  // ======================
+  <script>
+    // ====== EDIT ME ======
+    // Set your tentative launch date (YYYY-MM-DD)
+    const LAUNCH_DATE = "2025-10-15";
+    // Optionally tweak progress (0–100)
+    const PROGRESS = { design: 60, content: 35, code: 50 };
+    // =====================
 
-  // year
-  document.getElementById('year').textContent = new Date().getFullYear();
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // progress bars
-  requestAnimationFrame(()=>{
-    document.getElementById('m1').style.width = PROGRESS.design + '%';
-    document.getElementById('m2').style.width = PROGRESS.code + '%';
-    document.getElementById('m3').style.width = PROGRESS.content + '%';
-  });
-
-  // countdown
-  const c = document.getElementById('count');
-  function tick(){
-    const now = new Date();
-    const t = new Date(LAUNCH_DATE + "T00:00:00");
-    if (isNaN(t)){ c.textContent = "Launch date TBD"; return; }
-    const diff = t - now;
-    if (diff <= 0){ c.textContent = "Docking at DXB…"; return; }
-    const d = Math.floor(diff/86400000);
-    const h = Math.floor((diff/3600000)%24);
-    const m = Math.floor((diff/60000)%60);
-    const s = Math.floor((diff/1000)%60);
-    c.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
-  }
-  tick(); setInterval(tick, 1000);
-
-  // typewriter terminal (Dubai-flavored)
-  const term = document.getElementById('term');
-  const linesEN = [
-    "> setting neon under Burj Khalifa…",
-    "> calibrating skyline glow…",
-    "> clearing Sheikh Zayed traffic…",
-    "> fueling with karak chai…",
-    "> STATUS: UNDER CONSTRUCTION ✨"
-  ];
-  const linesAR = [
-    "> تفعيل أضواء النيون تحت برج خليفة…",
-    "> معايرة توهج الأفق…",
-    "> تفريغ شارع الشيخ زايد…",
-    "> تزود بكرك شاي…",
-    "> الحالة: قيد الإنشاء ✨"
-  ];
-  let lang = "en";
-  let LI=0, CI=0;
-
-  function runType(lines){
-    if(LI>=lines.length) return;
-    const cur = lines[LI];
-    if(CI===0) term.innerHTML += "\n";
-    term.innerHTML = term.innerHTML.replace(/<span class="cursor"><\/span>$/,'');
-    term.innerHTML += cur.charAt(CI) || "";
-    CI++;
-    if(CI<=cur.length){
-      term.innerHTML += '<span class="cursor"></span>';
-      setTimeout(()=>runType(lines), 24 + Math.random()*38);
-    } else { CI=0; LI++; setTimeout(()=>runType(lines), 360); }
-  }
-  function startType(){ term.textContent=""; LI=0; CI=0; runType(lang==="en"?linesEN:linesAR); }
-  startType();
-
-  // bilingual toggle
-  const $ = (id)=>document.getElementById(id);
-  const t = (el)=>[...document.querySelectorAll(el)];
-  const btnEN = $('btn-en'), btnAR = $('btn-ar');
-  function setLang(next){
-    lang = next;
-    document.documentElement.dir = (lang==="ar") ? "rtl" : "ltr";
-    btnEN.classList.toggle('active', lang==="en");
-    btnAR.classList.toggle('active', lang==="ar");
-    // swap text via data attributes
-    t('[data-en]').forEach(node=>{
-      node.textContent = node.getAttribute(lang==="en"?'data-en':'data-ar');
+    // Progress meters
+    requestAnimationFrame(() => {
+      document.getElementById('m1').style.width = PROGRESS.design + '%';
+      document.getElementById('m2').style.width = PROGRESS.content + '%';
+      document.getElementById('m3').style.width = PROGRESS.code + '%';
     });
-    startType();
-  }
-  btnEN.addEventListener('click', ()=>setLang('en'));
-  btnAR.addEventListener('click', ()=>setLang('ar'));
 
-  // subtle tilt on pointer/touch
-  const card = $('card');
-  let rect;
-  function tilt(x,y){
-    rect = rect || card.getBoundingClientRect();
-    const rx = ((y - (rect.top + rect.height/2)) / rect.height) * -6;
-    const ry = ((x - (rect.left + rect.width/2)) / rect.width) * 8;
-    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  }
-  function reset(){ card.style.transform = "rotateX(0deg) rotateY(0deg)"; rect=null }
-  document.addEventListener('mousemove', e => tilt(e.clientX,e.clientY), {passive:true});
-  document.addEventListener('mouseleave', reset);
-  document.addEventListener('touchmove', e => { const t=e.touches[0]; tilt(t.clientX,t.clientY); }, {passive:true});
-  document.addEventListener('touchend', reset);
-</script>
+    // Countdown
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown(){
+      const now = new Date();
+      const target = new Date(LAUNCH_DATE + "T00:00:00");
+      const diff = target - now;
+      if (isNaN(target)) { countdownEl.textContent = "Date not set"; return; }
+      if (diff <= 0) { countdownEl.textContent = "Deploying shortly…"; return; }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      countdownEl.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Terminal typewriter
+    const term = document.getElementById('term');
+    const lines = [
+      "> initializing build system…",
+      "> pulling components: header, hero, panels…",
+      "> compiling styles…",
+      "> connecting socials…",
+      "> status: UNDER CONSTRUCTION ✅"
+    ];
+    let li = 0, ci = 0;
+    function typeNext(){
+      if (li >= lines.length) return;
+      const current = lines[li];
+      if (ci === 0) term.innerHTML += "\n";
+      term.innerHTML = term.innerHTML.replace(/<span class="cursor"><\/span>$/,'');
+      term.innerHTML += current.charAt(ci) || "";
+      ci++;
+      if (ci <= current.length){
+        term.innerHTML += '<span class="cursor"></span>';
+        setTimeout(typeNext, 28 + Math.random()*40);
+      } else {
+        ci = 0; li++;
+        setTimeout(typeNext, 350);
+      }
+    }
+    term.textContent = ""; typeNext();
+  </script>
 </body>
 </html>
