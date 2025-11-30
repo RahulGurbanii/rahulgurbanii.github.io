@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Rahul — Coming Soon</title>
-  <meta name="description" content="Rahul's portfolio is under construction. Connect with me and check back soon.">
+  <title>Rahul — Mission Briefing</title>
+  <meta name="description" content="Rahul's portfolio relaunch — mission in progress. Stand by.">
+  <!-- Optional: Stencil display face (falls back gracefully if blocked) -->
+  <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#0b0f1a;
-      --bg2:#0f1424;
-      --fg:#e8ecf1;
-      --muted:#a8b2c1;
-      --neon:#53e3fb;        /* primary accent */
-      --neon2:#7cf7c7;       /* secondary accent */
-      --card:#111728cc;
+      /* MIL / HUD palette */
+      --bg1:#070b0a;         /* command room black */
+      --bg2:#0d1412;         /* deep green-black */
+      --fg:#e5f2e7;          /* pale HUD text */
+      --muted:#9bb4a2;       /* muted labels */
+      --accent:#7CFF6B;      /* NVG neon */
+      --accent2:#39c07f;     /* secondary glyph */
+      --accent-amber:#f5d66b;/* warning amber */
+      --card:#0a120fcc;      /* glass card */
+      --danger:#ff6655;      /* alerts */
+      --grid:#14221b;        /* radar grid lines */
     }
 
     *{ box-sizing:border-box }
@@ -23,22 +29,26 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--fg);
       background:
-        radial-gradient(1200px 800px at 10% 10%, #1a2442 0%, transparent 60%),
-        radial-gradient(1200px 800px at 90% 80%, #152a23 0%, transparent 60%),
+        /* topo contour lines */
+        radial-gradient(1200px 800px at 10% 10%, rgba(60,130,80,.10) 0%, transparent 60%),
+        radial-gradient(1200px 800px at 90% 80%, rgba(60,80,130,.08) 0%, transparent 60%),
         linear-gradient(120deg, var(--bg1), var(--bg2));
       overflow-x:hidden;
     }
 
-    /* animated subtle gradient wash */
+    /* camo wash + scanline film */
     body::before{
       content:"";
-      position:fixed; inset:0;
-      background: radial-gradient(60% 80% at 70% 20%, rgba(83,227,251,.10), transparent 70%),
-                  radial-gradient(70% 70% at 30% 80%, rgba(124,247,199,.08), transparent 70%);
-      animation: wash 16s ease-in-out infinite alternate;
-      pointer-events:none;
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        /* subtle scanlines */
+        repeating-linear-gradient(0deg, rgba(124,255,107,0.03) 0 1px, transparent 1px 3px),
+        /* camo splotches */
+        radial-gradient(30% 40% at 20% 25%, rgba(51,71,51,.10) 0 60%, transparent 65%),
+        radial-gradient(25% 35% at 70% 70%, rgba(35,52,40,.10) 0 60%, transparent 65%);
+      animation: wash 14s ease-in-out infinite alternate;
     }
-    @keyframes wash { to { transform: translateY(-2%) scale(1.02); filter: hue-rotate(10deg); } }
+    @keyframes wash { to { transform: translateY(-1.5%) scale(1.01); filter:hue-rotate(-8deg) saturate(1.05); } }
 
     .wrap{
       min-height:100%;
@@ -48,134 +58,185 @@
     }
 
     .card{
-      width:min(920px, 92vw);
+      width:min(980px, 94vw);
       background:var(--card);
       border:1px solid rgba(255,255,255,.08);
       border-radius:16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.03);
       padding:28px;
       backdrop-filter: blur(8px);
+      position:relative;
+      overflow:hidden;
     }
+    /* corner brackets */
+    .card::before, .card::after{
+      content:""; position:absolute; width:22px; height:22px; border:2px solid var(--accent);
+      filter: drop-shadow(0 0 6px rgba(124,255,107,.35));
+    }
+    .card::before{ left:14px; top:14px; border-right:none; border-bottom:none }
+    .card::after{ right:14px; bottom:14px; border-left:none; border-top:none }
 
     header{
       display:flex; align-items:center; gap:20px; flex-wrap:wrap;
-      border-bottom: 1px dashed rgba(255,255,255,.12);
+      border-bottom: 1px dashed rgba(124,255,107,.25);
       padding-bottom:18px; margin-bottom:22px;
     }
     .avatar{
-      width:72px; height:72px; border-radius:50%;
-      border:2px solid rgba(255,255,255,.12);
-      background: url('https://placehold.co/144x144/png') center/cover no-repeat;
+      width:72px; height:72px; border-radius:8px;
+      border:2px solid rgba(124,255,107,.35);
+      background: url('https://placehold.co/144x144/png?text=RG') center/cover no-repeat;
+      box-shadow: 0 0 20px rgba(124,255,107,.18) inset;
       flex: 0 0 72px;
     }
     .title h1{
-      margin:0; font-size: clamp(22px, 4vw, 28px); letter-spacing:.2px;
+      margin:0; font-size: clamp(22px, 4vw, 28px); letter-spacing:.8px;
+      font-family: "Stardos Stencil", ui-sans-serif, system-ui;
+      text-transform: uppercase;
     }
     .title p{
-      margin:6px 0 0; color:var(--muted); font-size:14px;
+      margin:6px 0 0; color:var(--muted); font-size:14px; letter-spacing:.3px;
     }
 
     .badge{
       display:inline-flex; align-items:center; gap:8px;
-      margin-top:10px; padding:6px 10px; border-radius:999px;
-      font-size:12px; color:#001218; background: linear-gradient(90deg, var(--neon), var(--neon2));
-      font-weight:700; text-transform:uppercase; letter-spacing:.6px;
-      box-shadow: 0 0 10px rgba(83,227,251,.45);
+      margin-top:10px; padding:6px 10px; border-radius:4px;
+      font-size:12px; color:#0b120e; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      font-weight:800; text-transform:uppercase; letter-spacing:.8px;
+      box-shadow: 0 0 10px rgba(124,255,107,.35);
+    }
+    .badge::before{
+      content:"◆"; font-size:11px; opacity:.8
     }
 
-    .hero{
-      display:grid; gap:16px; margin:8px 0 10px;
-    }
+    .hero{ display:grid; gap:16px; margin:8px 0 10px; }
     .hero h2{
       margin:0;
-      font-size: clamp(24px, 6vw, 46px);
+      font-family: "Stardos Stencil", ui-sans-serif, system-ui;
+      text-transform: uppercase;
+      letter-spacing:1.2px;
+      font-size: clamp(24px, 6vw, 44px);
       line-height:1.1;
-      text-shadow: 0 0 18px rgba(83,227,251,.15);
+      text-shadow: 0 0 18px rgba(124,255,107,.18);
     }
     .hero p{ margin:0; color:var(--muted); font-size: clamp(14px, 2.5vw, 16px) }
 
+    /* Terminal / Console */
     .terminal{
       margin-top:18px;
-      background:#0a0f1d;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:12px;
+      background:#07100c;
+      border:1px solid rgba(124,255,107,.28);
+      border-radius:8px;
       padding:14px 16px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      color:#d6ffe7;
+      color:#bfffd0;
       position:relative;
+      box-shadow: inset 0 0 0 1px rgba(124,255,107,.08);
     }
     .dot{ width:8px; height:8px; border-radius:999px; background:#f66; display:inline-block; margin-right:6px }
-    .dot.y{ background:#fc6 }
+    .dot.y{ background:#f5d66b }
     .dot.g{ background:#6f6 }
 
     .lines{ min-height:66px; white-space:pre-wrap; }
+    .cursor{
+      display:inline-block; width:9px; margin-left:2px; height:1em; vertical-align:bottom;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      animation: blink 1s steps(1,end) infinite;
+    }
+    @keyframes blink { 50% { opacity:0 } }
 
     .grid{
       display:grid; gap:16px; margin-top:18px;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      grid-template-columns: 1.2fr 1fr 1fr;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
     }
 
     .panel{
-      background:#0c1224;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:12px;
+      background:#0a160f;
+      border:1px dashed rgba(124,255,107,.25);
+      border-radius:8px;
       padding:16px;
+      position:relative;
     }
-    .panel h3{ margin:0 0 10px; font-size:16px }
+    .panel h3{ margin:0 0 10px; font-size:14px; color:var(--accent); letter-spacing:.8px; text-transform:uppercase }
     .panel p{ margin:8px 0 0; color:var(--muted); font-size:14px }
 
-    .meter{ height:8px; border-radius:10px; background:#1a2442; overflow:hidden; margin-top:10px }
+    /* Chevron meters */
+    .meter{ height:12px; border-radius:3px; background:#0f1f17; overflow:hidden; margin-top:8px; clip-path: polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%); }
     .meter > span{
       display:block; height:100%;
-      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      background:
+        repeating-linear-gradient(45deg, rgba(124,255,107,.35) 0 8px, rgba(124,255,107,.55) 8px 16px),
+        linear-gradient(90deg, rgba(124,255,107,.9), rgba(57,192,127,.9));
       width:0%;
-      box-shadow: 0 0 10px rgba(83,227,251,.35);
+      box-shadow: 0 0 10px rgba(124,255,107,.35);
       transition: width 1.2s ease;
     }
 
     .count{
       font-variant-numeric: tabular-nums;
-      font-weight:600;
-      font-size:18px;
-      margin-top:6px;
+      font-weight:700; letter-spacing:.8px;
+      font-size:18px; margin-top:6px;
+      color: var(--accent-amber);
+      text-shadow: 0 0 10px rgba(245,214,107,.25);
     }
+    .subtle{ color: var(--muted); font-size:12px }
 
-    .actions{
-      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px
-    }
+    .actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px }
     .btn{
       display:inline-flex; align-items:center; gap:8px;
-      padding:10px 14px; border-radius:10px; text-decoration:none; color:#001218;
-      background: linear-gradient(90deg, var(--neon), var(--neon2));
-      font-weight:700; box-shadow: 0 0 14px rgba(83,227,251,.45);
+      padding:9px 12px; border-radius:6px; text-decoration:none; color:#07100c;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      font-weight:800; letter-spacing:.4px; text-transform:uppercase; font-size:12px;
+      box-shadow: 0 0 14px rgba(124,255,107,.35);
+      border:1px solid rgba(0,0,0,.3);
     }
     .btn.ghost{
-      color:var(--fg); background:transparent; border:1px solid rgba(255,255,255,.18);
+      color:var(--fg); background:transparent; border:1px dashed rgba(124,255,107,.35);
       box-shadow:none;
     }
     .socials{ display:flex; gap:10px; margin-left:auto }
-    .icon{
-      width:18px; height:18px; display:inline-block; vertical-align:-3px; fill:currentColor;
-    }
+    .icon{ width:18px; height:18px; display:inline-block; vertical-align:-3px; fill:currentColor; }
 
     footer{
-      margin-top:22px; color:var(--muted); font-size:13px; text-align:center;
+      margin-top:22px; color:var(--muted); font-size:12px; text-align:center;
     }
 
-    /* accessibility: reduce motion */
-    @media (prefers-reduced-motion: reduce) {
-      body::before { animation:none }
-      .meter > span { transition:none }
-      .cursor{ animation:none }
+    /* Radar widget */
+    .radar{
+      position:relative; aspect-ratio:1/1; width:100%; max-width:420px; margin-inline:auto;
+      background:
+        radial-gradient(circle at center, rgba(124,255,107,.25) 0 2px, transparent 3px),
+        repeating-radial-gradient(circle at center, transparent 0 28px, rgba(124,255,107,.08) 28px 29px),
+        linear-gradient(0deg, transparent 49%, rgba(124,255,107,.10) 50%, transparent 51%),
+        linear-gradient(90deg, transparent 49%, rgba(124,255,107,.10) 50%, transparent 51%),
+        radial-gradient(circle at center, rgba(20,34,27,.9), rgba(10,22,15,.9));
+      border:1px solid rgba(124,255,107,.35);
+      border-radius:50%;
+      box-shadow: inset 0 0 40px rgba(0,0,0,.6), 0 0 20px rgba(124,255,107,.18);
+      overflow:hidden;
     }
+    .sweep{
+      position:absolute; inset:-2%;
+      background:
+        conic-gradient(from 0deg, rgba(124,255,107,.28), rgba(124,255,107,0) 40%);
+      animation: sweep 3.4s linear infinite;
+      transform-origin:center;
+      filter: blur(1px);
+    }
+    @keyframes sweep { to { transform: rotate(360deg) } }
+    .blip{
+      position:absolute; width:6px; height:6px; border-radius:999px; background: var(--accent);
+      box-shadow: 0 0 10px rgba(124,255,107,.8);
+      animation: ping 2s ease-out infinite;
+    }
+    @keyframes ping{ 0%{ transform:scale(.6); opacity:1 } 100%{ transform:scale(1.8); opacity:0 } }
 
-    /* typewriter caret */
-    .cursor{
-      display:inline-block; width:10px; margin-left:2px; height:1em; vertical-align:bottom;
-      background: linear-gradient(90deg, var(--neon), var(--neon2));
-      animation: blink 1s steps(1,end) infinite;
+    /* reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      body::before, .sweep, .meter > span, .cursor{ animation:none }
     }
-    @keyframes blink { 50% { opacity:0 } }
   </style>
 </head>
 <body>
@@ -184,50 +245,62 @@
       <header>
         <div class="avatar" aria-hidden="true"></div>
         <div class="title">
-          <h1 id="headline">Rahul’s Portfolio</h1>
-          <p>Rebuilding with love, coffee, and clean CSS.</p>
-          <div class="badge" aria-label="Under construction">🚧 UNDER CONSTRUCTION</div>
+          <h1 id="headline">Rahul // Command Console</h1>
+          <p>Rebuild status: ACTIVE. Coffee ready. Systems nominal.</p>
+          <div class="badge" aria-label="Mission status">⚑ MISSION: REDEPLOY</div>
         </div>
       </header>
 
       <section class="hero" aria-describedby="sub">
-        <h2>Launching something new, soon.</h2>
-        <p id="sub">Check back after the countdown—or follow the links below.</p>
+        <h2>Relaunch inbound. Hold your position.</h2>
+        <p id="sub">Monitor the mission timer, track build ops, or reach command via links below.</p>
 
         <!-- Terminal-style status -->
         <div class="terminal" aria-live="polite">
           <div style="margin-bottom:8px;">
             <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
           </div>
-          <div class="lines" id="term">
-            <!-- JS will type lines here -->
-          </div>
+          <div class="lines" id="term"></div>
         </div>
 
         <div class="grid">
+          <!-- Left: Mission timer + radar -->
           <div class="panel">
-            <h3>Next Release ETA</h3>
+            <h3>Mission Timer (T-0)</h3>
             <div class="count" id="countdown">Calculating…</div>
-            <p>Drop date is tentative; I’ll update if plans change.</p>
+            <div class="subtle">REF: LCH-WINDOW tentative. Live sync enabled.</div>
+            <div style="height:16px"></div>
+            <div class="radar" aria-hidden="true">
+              <div class="sweep"></div>
+              <!-- blips -->
+              <span class="blip" style="left:22%; top:36%; animation-delay:.2s"></span>
+              <span class="blip" style="left:66%; top:28%; animation-delay:1.1s"></span>
+              <span class="blip" style="left:72%; top:68%; animation-delay:.6s"></span>
+              <span class="blip" style="left:34%; top:74%; animation-delay:1.6s"></span>
+            </div>
           </div>
 
+          <!-- Middle: Build ops -->
           <div class="panel">
-            <h3>Build Progress</h3>
-            <div>Design</div>
+            <h3>Build Ops // Progress</h3>
+            <div>Design ▸ <span class="subtle">UI/UX, theme kit</span></div>
             <div class="meter"><span id="m1"></span></div>
-            <div>Content</div>
+            <div style="height:8px"></div>
+            <div>Content ▸ <span class="subtle">Case studies, bio</span></div>
             <div class="meter"><span id="m2"></span></div>
-            <div>Code</div>
+            <div style="height:8px"></div>
+            <div>Code ▸ <span class="subtle">Components, routing</span></div>
             <div class="meter"><span id="m3"></span></div>
           </div>
 
+          <!-- Right: Comms -->
           <div class="panel">
-            <h3>Stay Connected</h3>
-            <p>Meanwhile, find me here:</p>
+            <h3>Comms // Channels</h3>
+            <p>For priority traffic, use these routes:</p>
             <div class="actions">
               <a class="btn" href="mailto:your@email.com" aria-label="Send me an email">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
-                Email
+                Email HQ
               </a>
               <a class="btn ghost" href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5.001 2.5 2.5 0 0 1 0-5zM4 9h2v12H4zM9 9h2v1.7c.6-1 1.7-1.9 3.5-1.9 3 0 5.5 2 5.5 6.2V21h-2v-5.5c0-2.4-1-3.7-3-3.7-1.6 0-2.6 1.1-3 2.1V21H9z"/></svg>
@@ -238,12 +311,13 @@
                 Instagram
               </a>
             </div>
+            <p class="subtle" style="margin-top:10px">Note: external links open in new window.</p>
           </div>
         </div>
       </section>
 
       <footer>
-        © <span id="year"></span> Rahul. Building in public. 🚀
+        © <span id="year"></span> Rahul. Building in public. <span style="color:var(--accent)">▲</span>
       </footer>
     </main>
   </div>
@@ -252,8 +326,8 @@
     // ====== EDIT ME ======
     // Set your tentative launch date (YYYY-MM-DD)
     const LAUNCH_DATE = "2025-10-15";
-    // Optionally tweak progress (0–100)
-    const PROGRESS = { design: 60, content: 35, code: 50 };
+    // Set progress (0–100)
+    const PROGRESS = { design: 70, content: 40, code: 55 };
     // =====================
 
     // Year
@@ -266,49 +340,49 @@
       document.getElementById('m3').style.width = PROGRESS.code + '%';
     });
 
-    // Countdown
+    // Mission timer
     const countdownEl = document.getElementById('countdown');
     function updateCountdown(){
       const now = new Date();
       const target = new Date(LAUNCH_DATE + "T00:00:00");
       const diff = target - now;
-      if (isNaN(target)) { countdownEl.textContent = "Date not set"; return; }
-      if (diff <= 0) { countdownEl.textContent = "Deploying shortly…"; return; }
+      if (isNaN(target)) { countdownEl.textContent = "DATE NOT SET"; return; }
+      if (diff <= 0) { countdownEl.textContent = "T-0 ACHIEVED — DEPLOYMENT SEQUENCE"; return; }
       const d = Math.floor(diff / (1000*60*60*24));
       const h = Math.floor((diff / (1000*60*60)) % 24);
       const m = Math.floor((diff / (1000*60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
-      countdownEl.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+      countdownEl.textContent = `T-${d}D ${String(h).padStart(2,'0')}H ${String(m).padStart(2,'0')}M ${String(s).padStart(2,'0')}S`;
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Terminal typewriter
+    // Terminal typewriter (mil log)
     const term = document.getElementById('term');
     const lines = [
-      "> initializing build system…",
-      "> pulling components: header, hero, panels…",
-      "> compiling styles…",
-      "> connecting socials…",
-      "> status: UNDER CONSTRUCTION ✅"
+      "> AUTH LINK: VERIFIED // ACCESS LVL: GREEN",
+      "> BOOT: FRAMEWORK online … OK",
+      "> LOAD: UI components … OK",
+      "> LINK: social relays … OK",
+      "> STATUS: MISSION REDEPLOY IN PROGRESS ✅"
     ];
     let li = 0, ci = 0;
     function typeNext(){
       if (li >= lines.length) return;
       const current = lines[li];
-      if (ci === 0) term.innerHTML += "\n";
+      if (ci === 0) term.innerHTML += (li ? "\n" : "");
       term.innerHTML = term.innerHTML.replace(/<span class="cursor"><\/span>$/,'');
       term.innerHTML += current.charAt(ci) || "";
       ci++;
       if (ci <= current.length){
         term.innerHTML += '<span class="cursor"></span>';
-        setTimeout(typeNext, 28 + Math.random()*40);
+        setTimeout(typeNext, 22 + Math.random()*38);
       } else {
         ci = 0; li++;
-        setTimeout(typeNext, 350);
+        setTimeout(typeNext, 340);
       }
     }
     term.textContent = ""; typeNext();
   </script>
 </body>
-</html>
+</html>b
