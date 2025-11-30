@@ -1,2 +1,371 @@
 <!DOCTYPE html>
-<html lang="
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Rahul — Command Console</title>
+  <meta name="description" content="Rahul's portfolio relaunch — mission in progress. Stand by.">
+  <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#070b0a; --bg2:#0d1412; --fg:#e5f2e7; --muted:#9bb4a2;
+      --accent:#7CFF6B; --accent2:#39c07f; --amber:#f5d66b; --card:#0a120fcc;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{
+      margin:0; color:var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(60,130,80,.10) 0%, transparent 60%),
+        radial-gradient(1200px 800px at 90% 80%, rgba(60,80,130,.08) 0%, transparent 60%),
+        linear-gradient(120deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+    body::before{
+      content:""; position:fixed; inset:0; pointer-events:none;
+      background:
+        repeating-linear-gradient(0deg, rgba(124,255,107,0.03) 0 1px, transparent 1px 3px),
+        radial-gradient(30% 40% at 20% 25%, rgba(51,71,51,.10) 0 60%, transparent 65%),
+        radial-gradient(25% 35% at 70% 70%, rgba(35,52,40,.10) 0 60%, transparent 65%);
+      animation: wash 14s ease-in-out infinite alternate;
+    }
+    @keyframes wash{to{transform:translateY(-1.5%) scale(1.01); filter:hue-rotate(-8deg) saturate(1.05)}}
+
+    .wrap{min-height:100%; display:grid; place-items:center; padding:48px 20px}
+
+    .card{
+      width:min(980px,94vw); background:var(--card); border:1px solid rgba(255,255,255,.08);
+      border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.03);
+      padding:28px; backdrop-filter: blur(8px); position:relative; overflow:hidden;
+    }
+
+    .card::before,.card::after{
+      content:""; position:absolute; width:22px; height:22px;
+      border:2px solid var(--accent);
+      filter:drop-shadow(0 0 6px rgba(124,255,107,.35));
+    }
+    .card::before{left:14px; top:14px; border-right:none; border-bottom:none}
+    .card::after{right:14px; bottom:14px; border-left:none; border-top:none}
+
+    header{
+      display:flex; align-items:center; flex-wrap:wrap;
+      gap:20px; border-bottom:1px dashed rgba(124,255,107,.25);
+      padding-bottom:18px; margin-bottom:16px;
+    }
+
+    .avatar{
+      width:72px; height:72px; border-radius:8px;
+      border:2px solid rgba(124,255,107,.35);
+      background:url('https://placehold.co/144x144/png?text=RG') center/cover no-repeat;
+      box-shadow:0 0 20px rgba(124,255,107,.18) inset;
+      flex:0 0 72px;
+    }
+
+    .title h1{
+      margin:0; font-size:clamp(22px,4vw,28px);
+      font-family:"Stardos Stencil";
+      letter-spacing:1px; text-transform:uppercase;
+    }
+    .title p{margin:4px 0 0; color:var(--muted); font-size:14px}
+
+    .badge{
+      margin-top:8px; padding:6px 10px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#001107; border-radius:4px;
+      font-size:11px; font-weight:800;
+      letter-spacing:1px; text-transform:uppercase;
+      box-shadow:0 0 10px rgba(124,255,107,.35);
+    }
+
+    .controls{display:flex; gap:8px; margin-left:auto}
+    .toggle{
+      padding:6px 10px; border-radius:4px; font-size:11px;
+      letter-spacing:.6px; text-transform:uppercase;
+      border:1px dashed rgba(124,255,107,.35);
+      background:transparent; color:var(--fg); cursor:pointer;
+    }
+    .toggle.primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#07100c; border:1px solid rgba(0,0,0,.4); font-weight:700;
+    }
+
+    .hero h2{
+      margin:0; font-family:"Stardos Stencil";
+      font-size:clamp(24px,6vw,44px); text-transform:uppercase;
+    }
+    .hero p{margin:4px 0; color:var(--muted)}
+
+    .terminal{
+      background:#07100c; border:1px solid rgba(124,255,107,.28);
+      padding:14px 16px; border-radius:8px;
+      font-family:ui-monospace; color:#bfffd0;
+    }
+    .dot{width:8px; height:8px; display:inline-block; border-radius:50%; margin-right:4px}
+    .dot{background:#f66}.dot.y{background:#f5d66b}.dot.g{background:#6f6}
+
+    .cursor{
+      width:10px; height:1em; display:inline-block; background:var(--accent);
+      animation:blink 1s infinite steps(1,end)
+    }
+    @keyframes blink{50%{opacity:0}}
+
+    .grid{
+      display:grid; gap:14px; margin-top:14px;
+      grid-template-columns:1.2fr 1fr 1fr;
+    }
+    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+    .panel{
+      background:#0a160f; border:1px dashed rgba(124,255,107,.25);
+      padding:16px; border-radius:8px;
+    }
+
+    .meter{height:12px; background:#112219; border-radius:4px; overflow:hidden}
+    .meter span{height:100%; display:block; width:0%;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      transition:.8s ease;
+    }
+
+    .radar{
+      position:relative; aspect-ratio:1/1; width:100%; max-width:420px;
+      border-radius:50%; border:1px solid rgba(124,255,107,.35);
+      background:
+        radial-gradient(circle at center, rgba(124,255,107,.3) 0 2px, transparent 3px),
+        repeating-radial-gradient(circle, transparent 0 28px, rgba(124,255,107,.08) 28px 29px),
+        radial-gradient(circle, #12251a, #0a1711);
+      overflow:hidden;
+    }
+
+    .sweep{
+      position:absolute; inset:-2%;
+      background:conic-gradient(rgba(124,255,107,.35), transparent 40%);
+      animation:sweep 3.4s linear infinite;
+    }
+    @keyframes sweep{to{transform:rotate(360deg)}}
+
+    .blip{
+      position:absolute; width:6px; height:6px;
+      background:var(--accent); border-radius:50%;
+      animation:ping 2s infinite ease-out;
+    }
+    @keyframes ping{
+      0%{transform:scale(.6); opacity:1}
+      100%{transform:scale(2); opacity:0}
+    }
+
+    footer{margin-top:20px; font-size:12px; color:var(--muted); text-align:center}
+
+    /* modes */
+    .night .card{filter:hue-rotate(-30deg) saturate(1.4)}
+    .map .card{background-image:linear-gradient(rgba(124,255,107,.08) 1px, transparent 1px),linear-gradient(90deg, rgba(124,255,107,.08) 1px, transparent 1px); background-size:22px 22px}
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+  <main class="card">
+    <header>
+      <div class="avatar"></div>
+      <div class="title">
+        <h1>Rahul // Command Console</h1>
+        <p>Rebuild status: ACTIVE. Systems nominal.</p>
+        <div class="badge">MISSION: REDEPLOY</div>
+      </div>
+
+      <div class="controls">
+        <button id="soundBtn" class="toggle primary">Enable Audio</button>
+        <button id="nightBtn" class="toggle">Night Vision</button>
+        <button id="mapBtn" class="toggle">Map Grid</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h2>Relaunch incoming. Hold position.</h2>
+      <p id="sub">Monitor the mission timer and radar feed.</p>
+
+      <div class="terminal">
+        <div>
+          <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+        </div>
+        <pre id="term"></pre>
+      </div>
+
+      <div class="grid">
+        <div class="panel">
+          <h3>Mission Timer</h3>
+          <div class="count" id="countdown" style="color:var(--amber);font-weight:700">Calculating…</div>
+          <br>
+          <div class="radar">
+            <div class="sweep"></div>
+            <span class="blip" style="left:20%;top:30%;animation-delay:.2s"></span>
+            <span class="blip" style="left:70%;top:25%;animation-delay:1s"></span>
+            <span class="blip" style="left:75%;top:65%;animation-delay:.6s"></span>
+            <span class="blip" style="left:35%;top:75%;animation-delay:1.6s"></span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Progress</h3>
+          <div>Design</div><div class="meter"><span id="m1"></span></div>
+          <div>Content</div><div class="meter"><span id="m2"></span></div>
+          <div>Code</div><div class="meter"><span id="m3"></span></div>
+        </div>
+
+        <div class="panel">
+          <h3>Comms</h3>
+          <a href="mailto:your@email.com" class="toggle primary">Email HQ</a>
+          <br><br>
+          <a href="https://linkedin.com" class="toggle">LinkedIn</a>
+          <br><br>
+          <a href="https://instagram.com" class="toggle">Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© <span id="year"></span> Rahul. Building in public.</footer>
+  </main>
+</div>
+
+<script>
+/* CONFIG */
+const LAUNCH_DATE = "2025-10-15";
+const PROGRESS = { design: 70, content: 40, code: 55 };
+
+/* ---------- Year ---------- */
+year.textContent = new Date().getFullYear();
+
+/* ---------- Progress ---------- */
+requestAnimationFrame(()=>{
+  m1.style.width = PROGRESS.design + "%";
+  m2.style.width = PROGRESS.content + "%";
+  m3.style.width = PROGRESS.code + "%";
+});
+
+/* ---------- Countdown ---------- */
+function updateCountdown(){
+  const now = new Date();
+  const target = new Date(LAUNCH_DATE + "T00:00:00");
+  const diff = target - now;
+  if(diff <= 0){ countdown.textContent = "T-0 — Deploying"; return; }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff/3600000) % 24);
+  const m = Math.floor((diff/60000) % 60);
+  const s = Math.floor((diff/1000) % 60);
+  countdown.textContent = `T-${d}D ${h}H ${m}M ${s}S`;
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ---------- Terminal typing ---------- */
+const lines = [
+  "> AUTH: ACCESS LVL GREEN",
+  "> BOOT: SYSTEM ONLINE",
+  "> LINK: RADAR FEED ACTIVE",
+  "> STATUS: MISSION REDEPLOY IN PROGRESS"
+];
+let li=0, ci=0;
+
+function typeNext(){
+  if(li >= lines.length) return;
+  const current = lines[li];
+  if(ci === 0) term.textContent += (li ? "\n" : "");
+  term.textContent += current[ci] || "";
+  playKeyBeep();
+  ci++;
+  if(ci <= current.length) setTimeout(typeNext, 25 + Math.random()*40);
+  else{ ci=0; li++; setTimeout(typeNext, 350); }
+}
+typeNext();
+
+/* ---------- Audio: iPad Safari FIXED ---------- */
+
+let audioCtx = null, masterGain = null, unlocked = false, soundEnabled = false;
+
+function initAudio(){
+  if(audioCtx) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  audioCtx = new Ctx();
+  masterGain = audioCtx.createGain();
+  masterGain.gain.value = 0.30;  // louder for iPad
+  masterGain.connect(audioCtx.destination);
+}
+
+/* silent buffer to unlock audio on iOS */
+async function unlockAudio(){
+  if(unlocked) return;
+  initAudio();
+  if(audioCtx.state === "suspended") await audioCtx.resume();
+
+  const buf = audioCtx.createBuffer(1, audioCtx.sampleRate*0.05, audioCtx.sampleRate);
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  src.connect(masterGain);
+  src.start(0);
+
+  unlocked = true;
+}
+
+/* Safari-safe beep */
+function quickBeep({freq=900, dur=0.10, type='sine', vol=0.35}={}){
+  if(!soundEnabled || !audioCtx) return;
+
+  const t0 = audioCtx.currentTime + 0.01;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+
+  o.type = type;
+  o.frequency.setValueAtTime(freq, t0);
+
+  g.gain.setValueAtTime(0.001, t0);
+  g.gain.linearRampToValueAtTime(vol, t0+0.012);
+  g.gain.exponentialRampToValueAtTime(0.002, t0+dur);
+
+  o.connect(g);
+  g.connect(masterGain);
+
+  o.start(t0);
+  o.stop(t0 + dur + 0.03);
+}
+
+function playPing(){ quickBeep({freq:980, dur:0.14, vol:0.40}); }
+function playSweepTick(){ quickBeep({freq:400, dur:0.04, type:'triangle', vol:0.25}); }
+function playKeyBeep(){ quickBeep({freq:1200, dur:0.02, type:'square', vol:0.08}); }
+
+/* sweep ticks */
+setInterval(()=>{ if(soundEnabled) playSweepTick(); }, 340);
+
+/* random radar pings */
+setInterval(()=>{ if(soundEnabled && Math.random()<0.30) playPing(); }, 1000);
+
+/* enable audio button */
+soundBtn.addEventListener("click", async ()=>{
+  await unlockAudio();
+  if(audioCtx.state==="suspended") await audioCtx.resume();
+
+  soundEnabled = !soundEnabled;
+  soundBtn.textContent = soundEnabled ? "Audio ON" : "Enable Audio";
+  soundBtn.classList.toggle("primary", soundEnabled);
+
+  if(soundEnabled) quickBeep({freq:700, dur:0.08, type:"square", vol:0.22});
+});
+
+/* auto unlock on first interaction */
+["touchstart","pointerdown","mousedown","keydown"].forEach(evt=>{
+  window.addEventListener(evt, ()=> unlockAudio(), {once:true});
+});
+
+/* Night + Map mode */
+nightBtn.onclick = ()=> document.documentElement.classList.toggle("night");
+mapBtn.onclick = ()=> document.documentElement.classList.toggle("map");
+
+/* Keyboard shortcuts */
+window.addEventListener("keydown", e=>{
+  if(e.key==="s") soundBtn.click();
+  if(e.key==="n") nightBtn.click();
+  if(e.key==="m") mapBtn.click();
+});
+</script>
+</body>
+</html>
+
